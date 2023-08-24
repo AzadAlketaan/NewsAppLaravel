@@ -9,9 +9,11 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Author;
 use App\Models\Language;
+use App\Models\ErrorLogs;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Exception;
 
 class SyncNewsAPI extends Seeder
 {
@@ -84,20 +86,25 @@ class SyncNewsAPI extends Seeder
             foreach (app(NewsAPIService::class)->getTopHeadlines(null, $source->external_id) as $topArticle)
             {
                 $author =  isset($topArticle->author) ? $this->getAuthor($topArticle->author) : null;
-if($topArticle->title == 'Senaste nytt') dd($topArticle);
+
                 if(!Article::where('title', $topArticle->title)->exists())
                 {
-                    Article::create([
-                        'source_id' => $source->id,
-                        'author_id' => $author->id ?? null,
-                        'title' => $topArticle->title,
-                        'description' => $topArticle->description,
-                        'url' => $topArticle->url,
-                        'image' => $topArticle->urlToImage,
-                        'published_at' => Carbon::parse($topArticle->publishedAt) ?? null,
-                        'content' => $topArticle->content,                        
-                        'is_top' => 1
-                    ]);
+                    try
+                    {
+                        Article::create([
+                            'source_id' => $source->id,
+                            'author_id' => $author->id ?? null,
+                            'title' => $topArticle->title,
+                            'description' => $topArticle->description,
+                            'url' => $topArticle->url,
+                            'image' => $topArticle->urlToImage,
+                            'published_at' => Carbon::parse($topArticle->publishedAt),
+                            'content' => $topArticle->content,                        
+                            'is_top' => 1
+                        ]);
+                    } catch (\Throwable $th) {
+                        ErrorLogs::addToLog('Failed Syncing NewsAPI TopHeadlines', $exception->getMessage());
+                    }
                 }
             }
         }
@@ -117,16 +124,21 @@ if($topArticle->title == 'Senaste nytt') dd($topArticle);
 
                     if(!Article::where('title', $topArticle->title)->exists())
                     {
-                        Article::create([
-                            'source_id' => $source->id,
-                            'author_id' => $author->id ?? null,
-                            'title' => $article->title,
-                            'description' => $article->description,
-                            'url' => $article->url,
-                            'image' => $article->urlToImage,
-                            'published_at' => Carbon::parse($article->publishedAt) ?? null,
-                            'content' => $article->content
-                        ]);
+                        try
+                        {
+                            Article::create([
+                                'source_id' => $source->id,
+                                'author_id' => $author->id ?? null,
+                                'title' => $article->title,
+                                'description' => $article->description,
+                                'url' => $article->url,
+                                'image' => $article->urlToImage,
+                                'published_at' => Carbon::parse($article->publishedAt) ?? null,
+                                'content' => $article->content
+                            ]);
+                        } catch (\Throwable $th) {
+                            ErrorLogs::addToLog('Failed Syncing NewsAPI TopHeadlines', $exception->getMessage());
+                        }
                     }
                 }
             }
@@ -137,14 +149,16 @@ if($topArticle->title == 'Senaste nytt') dd($topArticle);
 
     public function getAuthor($author): Author
     {
-        if (str_contains($author, ','))
-        {
-            foreach (explode(',', $author) as $articleAuthor)
-                $author = Author::where('name', $articleAuthor)->first() ?? Author::create(['name' => $articleAuthor]);
-        }
-        else
-            $author = Author::where('name', $author)->first() ?? Author::create(['name' => $author]);
+        return Author::where('name', $author)->first() ?? Author::create(['name' => $author]);
 
-        return $author;
+        //if (str_contains($author, ','))
+        //{
+        //    foreach (explode(',', $author) as $articleAuthor)
+        //        $author = Author::where('name', $articleAuthor)->first() ?? Author::create(['name' => $articleAuthor]);
+        //}
+        //else
+        //    $author = Author::where('name', $author)->first() ?? Author::create(['name' => $author]);
+
+        //return $author;
     }
 }
