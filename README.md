@@ -1,66 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Welcome to News Application:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Overview:
+This application is about fetching News from many sources.
 
-## About Laravel
+Main Pages:
+1-	Login/Signup: Login/ Signup in the system.
+2-	News Feed: This page returns the top headlines of news.
+3-	Articles: This page returns All the articles.
+4-	User Profile: This page is where you can customize the type of news shown in your News Feed.
+As a Guest:
+-	You can access the News Feed page (without any customization (all the top headlines of news will appear on this page).
+-	You can access the Articles page where you can search for articles by keyword and filter the results by date, category, and source.
+As a User: 
+-	You can access the News Feed page (depending on your customization in the User Profile Page) and the Articles page.
+-	You can customize the type of news shown in your News Feed by selecting their preferred sources, categories, and authors.
+Frontend React project Features:
+1-	Mobile-responsive design: The website is optimized for viewing on mobile devices.
+2-	There are pagination and filters. In addition, you can search for articles by there titles.
+3-	The code is optimized.
+Backend Laravel Framework features:
+1-	There is a login log for all the login operations to the system. (Extra feature)
+2-	There is an error log for all the failed actions on the system. (Extra feature)
+How to run the projects:
+-	Frontend:
+Follow the following instructions:
+•	Build the Docker image by running the following command in the terminal:
+docker build -t news-app-react-js
+•	Start the Docker containers by running the following command:
+docker-compose up
+The React JS application will be available at http://localhost:3000
+-	Backend:
+Follow the following instructions:
+•	Build the Docker image by running the following command in the terminal:
+docker build -t news-app-laravel
+•	Start the Docker containers by running the following command:
+docker-compose up
+The Laravel application will be available at http://localhost:8000
+-	Database:
+Create a new database in MySQL and put the name of the database in .env file in the Laravel application.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Execute the following commands as the same order in the terminal of the Laravel project:
+•	To create the tables:
+php artisan migrate
+•	To integrate with NewsAPI and NewsAPI.org:
+php artisan db:seed --class="SyncNewsAPI"
+•	To integrate with GuardianNewsAPI:
+php artisan db:seed --class=" SyncGuardianNewsAPI "
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Go to the following URL# http://localhost:3000 and start exploring.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Additional Info:
+You can customize your authentication keys for the integration news websites by adding the key in in .env file in the Laravel application as follows:
+NEWS_API_TOKEN=YOUR_TOKEN_HERE
+GUARDIAN_NEWS_TOKEN= YOUR_TOKEN_HERE
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Note: There are available tokens already exist in the project you can just use them without inserting any authentication key for the integration news websites, but it could happen to see this error about too many requests (the integration news websites allowed a number of requests per day).
