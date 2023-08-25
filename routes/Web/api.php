@@ -12,12 +12,10 @@ Route::prefix('auth')->group(function () {
         
     Route::prefix('login')->group(function () {
         Route::POST('/', [AuthController::class, 'login'])->name('login');
-        Route::POST('/social', [AuthController::class, 'loginWithSocial'])->name('loginWithSocial');
     });
     
     Route::POST('signup', [AuthController::class, 'signup'])->name('signup');
     Route::POST('logout', [AuthController::class, 'logout']);
-    Route::GET('me', [AuthController::class, 'me']);
 });
 
 Route::prefix('articles')->group(function () {

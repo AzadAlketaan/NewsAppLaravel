@@ -16,7 +16,7 @@ class CreateUserLoginsTable extends Migration
         Schema::create('user_logins', function (Blueprint $table) {
             $table->id();
             $table->enum('action', ['Login', 'Signup', 'Logout'])->nullable();
-            $table->enum('type', ['Social', 'Website'])->nullable();
+            $table->enum('type', ['Website'])->nullable();
             $table->string('website', 100)->nullable();
             $table->longText('context');
             $table->timestamp('login_at')->useCurrent();
