@@ -4,32 +4,32 @@ Overview:
 This application is about fetching News from many sources.
 
 Main Pages:
-1-	Login/Signup: Login/ Signup in the system.
-2-	News Feed: This page returns the top headlines of news.
-3-	Articles: This page returns All the articles.
-4-	User Profile: This page is where you can customize the type of news shown in your News Feed.
+1-  Login/Signup: Login/ Signup in the system.
+2-  News Feed: This page returns the top headlines of news.
+3-  Articles: This page returns All the articles.
+4-  User Profile: This page is where you can customize the type of news shown in your News Feed.
 As a Guest:
 -	You can access the News Feed page (without any customization (all the top headlines of news will appear on this page).
 -	You can access the Articles page to search for articles by keyword and filter the results by date, category, and source.
 As a User: 
--	You can access the News Feed page (depending on your customization in the User Profile Page) and the Articles page.
--	You can customize the type of news shown in your News Feed by selecting their preferred sources, categories, and authors.
+-  You can access the News Feed page (depending on your customization in the User Profile Page) and the Articles page.
+-  You can customize the type of news shown in your News Feed by selecting their preferred sources, categories, and authors.
 Frontend React project Features:
 1-	Mobile-responsive design: The website is optimized for viewing on mobile devices.
 2-	There are pagination and filters. In addition, you can search for articles by their titles.
 3-	The code is optimized.
 Backend Laravel Framework features:
-1-	There is a login log for all the login operations to the system. (Extra feature)
-2-	There is an error log for all the failed actions on the system. (Extra feature)
+1-  There is a login log for all the login operations to the system. (Extra feature)
+2-  There is an error log for all the failed actions on the system. (Extra feature)
 How to run the projects:
--	Frontend:
+-  Frontend:
 Follow the following instructions:
 •	Build the Docker image by running the following command in the terminal:
 docker build -t news-app-react-js .
 •	Start the Docker containers by running the following command:
 docker-compose up
 The React JS application will be available at http://localhost:3000
--	Backend:
+-  Backend:
 Follow the following instructions:
 •	Build the Docker image by running the following command in the terminal:
 docker build -t news-app-laravel .
@@ -42,9 +42,9 @@ Create a new database in MySQL and put the name of the database in the .env file
 Execute the following commands in the same order in the terminal of the Laravel project:
 •	To create the tables:
 php artisan migrate
-•	To integrate with NewsAPI and NewsAPI.org:
+•  To integrate with NewsAPI and NewsAPI.org:
 php artisan db:seed --class="SyncNewsAPI"
-•	To integrate with GuardianNewsAPI:
+•  To integrate with GuardianNewsAPI:
 php artisan db:seed --class=" SyncGuardianNewsAPI "
 •	Implementing User Authentication and Generate the APP Key:
 php artisan passport:install

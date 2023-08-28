@@ -2,8 +2,7 @@
 return [
     #Begin NewsAPI Keys
     'newsapi' => [
-        'token' => env("NEWS_API_TOKEN", "2ddcdffa5b5644dc8358e92812caa5fc"),
-        'result_limit' => env("NEWS_API_RESULT_LIMIT", 10)
+        'token' => env("NEWS_API_TOKEN", "2ddcdffa5b5644dc8358e92812caa5fc")
     ],
     #End NewsAPI Keys
     

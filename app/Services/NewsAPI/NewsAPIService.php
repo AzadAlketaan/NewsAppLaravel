@@ -13,6 +13,8 @@ class NewsAPIService
 {
     private NewsAPI $newsapi;
     public static $SUCCESS = 'ok';
+    public static $ItemsPerPage = 50;
+    public static $NumOfPages = 1;
 
     public function __construct()
     {
@@ -97,10 +99,10 @@ class NewsAPIService
 
     public function getTopHeadlines($q = null, $sources, $country = null, $category = null, $page_size = null, $page = null): Array
     {
-        //try
-        //{
+        try
+        {
             // Call: getTopHeadlines
-            $response = $this->newsapi->getTopHeadlines($q, $sources, $country, $category, $page_size, $page);
+            $response = $this->newsapi->getTopHeadlines($q, $sources, $country, $category, NewsAPIService::$ItemsPerPage, NewsAPIService::$NumOfPages);
 
             // Logging
             if ($response->status == NewsAPIService::$SUCCESS) return $response->articles;
@@ -108,10 +110,10 @@ class NewsAPIService
             ErrorLogs::addToLog('Failed Get Top Headlines', $response);
             return [];
 
-        //} catch (Exception $exception) {
+        } catch (Exception $exception) {
             ErrorLogs::addToLog('Failed Get Top Headlines', $exception->getMessage());
             return [];
-        //}
+        }
     }
 
     public function getEverything($q = null, $sources, $domains = null, $exclude_domains = null, $from = null, $to = null, $language = null, $sort_by = null,  $page_size = null, $page = null): Array
@@ -119,7 +121,7 @@ class NewsAPIService
         try
         {
             // Call: getEverything
-            $response = $this->newsapi->getEverything($q, $sources, $domains, $exclude_domains, $from, $to, $language, $sort_by,  $page_size, $page);
+            $response = $this->newsapi->getEverything($q, $sources, $domains, $exclude_domains, $from, $to, $language, $sort_by, NewsAPIService::$ItemsPerPage, NewsAPIService::$NumOfPages);
 
             // Logging
             if ($response->status == NewsAPIService::$SUCCESS) return $response->articles;

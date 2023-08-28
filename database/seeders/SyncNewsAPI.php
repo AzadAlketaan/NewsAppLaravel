@@ -102,7 +102,7 @@ class SyncNewsAPI extends Seeder
                             'content' => $topArticle->content,                        
                             'is_top' => 1
                         ]);
-                    } catch (\Throwable $th) {
+                    } catch (Exception $exception) {
                         ErrorLogs::addToLog('Failed Syncing NewsAPI TopHeadlines', $exception->getMessage());
                     }
                 }
@@ -136,7 +136,7 @@ class SyncNewsAPI extends Seeder
                                 'published_at' => Carbon::parse($article->publishedAt) ?? null,
                                 'content' => $article->content
                             ]);
-                        } catch (\Throwable $th) {
+                        } catch (Exception $exception) {
                             ErrorLogs::addToLog('Failed Syncing NewsAPI TopHeadlines', $exception->getMessage());
                         }
                     }

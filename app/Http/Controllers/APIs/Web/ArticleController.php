@@ -19,7 +19,7 @@ class ArticleController extends ApiController
     {
     }
 
-    public function index(Request $request)//: JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $articles = $this->articleRepository->getArticlesQuery();
 
@@ -38,7 +38,7 @@ class ArticleController extends ApiController
         if(isset($request->title)) $articles = $this->articleRepository->getArticlesByTitle($articles, $request->title);
 
         if(isset($request->search_text)) $articles = $this->articleRepository->getArticlesByTitleOrDesc($articles, $request->search_text);
-
+        
         $articles = $articles->paginate($request->limit);
         
         return $this->successResponse(['articles' => ArticleResource::collection($articles), 'lastPage' => $articles->lastPage()], __("Fetched successfully"));
