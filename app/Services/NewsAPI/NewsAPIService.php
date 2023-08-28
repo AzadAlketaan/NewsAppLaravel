@@ -13,8 +13,8 @@ class NewsAPIService
 {
     private NewsAPI $newsapi;
     public static $SUCCESS = 'ok';
-    public static $ItemsPerPage = 100;
-    public static $NumOfPages = 3;
+    public static $ItemsPerPage = 50;
+    public static $NumOfPages = 1;
 
     public function __construct()
     {
